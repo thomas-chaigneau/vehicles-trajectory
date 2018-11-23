@@ -1,0 +1,15 @@
+.Map {
+  height: 400px;
+}
+
+.Marker {
+  width: 252px; 
+  height: 421px; 
+}
+
+/* margin-left: -12px; 
+margin-top: -41px; 
+width: 25px; 
+height: 41px; 
+transform: translate3d(590px, 200px, 0px);
+ z-index: 200; */

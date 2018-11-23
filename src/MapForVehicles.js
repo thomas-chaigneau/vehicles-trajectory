@@ -1,14 +1,16 @@
 
 import React, { Component } from 'react';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+// eslint-disable-next-line
+import { Map, TileLayer, CircleMarker } from 'react-leaflet';
+import './style/MapForVehicles.css';
 
 class MapForVehicles extends Component {
   constructor() {
     super();
     this.state = {
-      startLat: 33.5879,
-      startLon: -7.49994,
-      zoom: 13,
+      startLat: 48.86092090955772,
+      startLon: 2.3303862391931456,
+      zoom: 15,
     };
   }
 
@@ -16,16 +18,12 @@ class MapForVehicles extends Component {
     const { startLat, startLon, zoom } = this.state;
     const position = [startLat, startLon];
     return (
-      <Map center={position} zoom={zoom}>
+      <Map className="Map" center={position} zoom={zoom}>
         <TileLayer
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png"
         />
-        <Marker position={position}>
-          <Popup>
-            A pretty CSS3 popup.
-          </Popup>
-        </Marker>
+        <CircleMarker center={position} color="red" radius={10} />
       </Map>
     );
   }
