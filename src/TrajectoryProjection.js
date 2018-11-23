@@ -1,35 +1,29 @@
-
 import React, { Component } from 'react';
 import MapForVehicles from './MapForVehicles';
-// import './style/TrajectoryProjection.css';
 import file from './data.json';
 
 const VehicleInfo = file.data[0];
 
 class TrajectoryProjection extends Component {
-  constructor() {
-    super();
-    this.state = {
+    state = {
       VehicleInfo,
+      currentTrajectorieNb: 0,
       startLat: VehicleInfo.trajectories[0].start_lat,
       startLon: VehicleInfo.trajectories[0].start_lon,
-      timer: 0,
     };
-  }
 
-  moveMarker = () => {
+  startVehiculesMove = () => {
     setInterval(() => {
-      const { timer } = this.state;
-      if (timer < VehicleInfo.trajectories.length) {
+      const { currentTrajectorieNb } = this.state;
+      if (currentTrajectorieNb < VehicleInfo.trajectories.length) {
         this.setState({
-          timer: timer + 1,
-          startLat: file.data[0].trajectories[timer].start_lat,
-          startLon: file.data[0].trajectories[timer].start_lon,
+          currentTrajectorieNb: currentTrajectorieNb + 1,
+          startLat: VehicleInfo.trajectories[currentTrajectorieNb].start_lat,
+          startLon: VehicleInfo.trajectories[currentTrajectorieNb].start_lon,
         });
-        // console.log(VehicleInfo.trajectories[VehicleInfo.trajectories.length - 1].start_datetime - VehicleInfo.trajectories[timer].start_datetime);
-        return clearInterval(this.moveMarker);
       }
-    }, 50);
+      clearInterval(this.startVehiculesMove);
+    }, 100);
   }
 
   render() {
@@ -38,11 +32,12 @@ class TrajectoryProjection extends Component {
         <ul>
           <span>Your are looking for vehiclue number:</span>
           <li>{VehicleInfo.id}</li>
-          <span>Depature time:</span>
+          <span>Depature date:</span>
           <li>{VehicleInfo.start_date}</li>
         </ul>
-
-        <button onClick={this.moveMarker} type="button">View Trajectory</button>
+        <button onClick={this.startVehiculesMove} type="button">
+          View Trajectory
+        </button>
         <MapForVehicles {...this.state} />
       </div>
     );

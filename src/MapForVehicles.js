@@ -1,9 +1,14 @@
 import React from 'react';
-// eslint-disable-next-line
 import { Map, TileLayer, CircleMarker } from 'react-leaflet';
+import PropTypes from 'prop-types';
 import './style/MapForVehicles.css';
 
 const MapForVehicles = (props) => {
+  MapForVehicles.propTypes = {
+    startLat: PropTypes.number.isRequired,
+    startLon: PropTypes.number.isRequired,
+  };
+
   const { startLat, startLon } = props;
   const position = [startLat, startLon];
   return (
