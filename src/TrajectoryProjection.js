@@ -19,12 +19,14 @@ class TrajectoryProjection extends Component {
 
   moveMarker = () => {
     setInterval(() => {
-      if (this.state.timer < VehicleInfo.trajectories.length) {
+      const { timer } = this.state;
+      if (timer < VehicleInfo.trajectories.length) {
         this.setState({
-          timer: this.state.timer + 1,
-          startLat: file.data[0].trajectories[this.state.timer].start_lat,
-          startLon: file.data[0].trajectories[this.state.timer].start_lon,
+          timer: timer + 1,
+          startLat: file.data[0].trajectories[timer].start_lat,
+          startLon: file.data[0].trajectories[timer].start_lon,
         });
+        // console.log(VehicleInfo.trajectories[VehicleInfo.trajectories.length - 1].start_datetime - VehicleInfo.trajectories[timer].start_datetime);
         return clearInterval(this.moveMarker);
       }
     }, 50);
@@ -37,7 +39,7 @@ class TrajectoryProjection extends Component {
           <span>Your are looking for vehiclue number:</span>
           <li>{VehicleInfo.id}</li>
           <span>Depature time:</span>
-          <li>trajectory</li>
+          <li>{VehicleInfo.start_date}</li>
         </ul>
 
         <button onClick={this.moveMarker} type="button">View Trajectory</button>
