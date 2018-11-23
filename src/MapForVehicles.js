@@ -8,14 +8,15 @@ class MapForVehicles extends Component {
   constructor() {
     super();
     this.state = {
-      startLat: 48.86092090955772,
-      startLon: 2.3303862391931456,
+      // startLat: 33.5879,
+      // startLon: -7.49994,
       zoom: 15,
     };
   }
 
   render() {
-    const { startLat, startLon, zoom } = this.state;
+    const { zoom } = this.state;
+    const { startLat, startLon } = this.props;
     const position = [startLat, startLon];
     return (
       <Map className="Map" center={position} zoom={zoom}>

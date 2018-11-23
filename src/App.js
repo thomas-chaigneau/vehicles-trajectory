@@ -1,14 +1,13 @@
 /* eslint-disable */
 import React, { Component } from 'react';
-import MapForVehicles from './MapForVehicles';
+import TrajectoryProjection from './TrajectoryProjection';
 import './style/App.css';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <MapForVehicles
-          className="MapForVehicles" />
+        <TrajectoryProjection />
       </div>
     );
   }
