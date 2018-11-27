@@ -10,6 +10,8 @@ class TrajectoryProjection extends Component {
       currentTrajectorieNb: 0,
       startLat: VehicleInfo.trajectories[0].start_lat,
       startLon: VehicleInfo.trajectories[0].start_lon,
+      endLat: VehicleInfo.trajectories[0].end_lat,
+      endLon: VehicleInfo.trajectories[0].end_lon,
     };
 
   startVehiculesMove = () => {
@@ -20,10 +22,12 @@ class TrajectoryProjection extends Component {
           currentTrajectorieNb: currentTrajectorieNb + 1,
           startLat: VehicleInfo.trajectories[currentTrajectorieNb].start_lat,
           startLon: VehicleInfo.trajectories[currentTrajectorieNb].start_lon,
+          endLat: VehicleInfo.trajectories[currentTrajectorieNb].end_lat,
+          endLon: VehicleInfo.trajectories[currentTrajectorieNb].end_lon,
         });
       }
       clearInterval(this.startVehiculesMove);
-    }, 100);
+    }, 900);
   }
 
   render() {
