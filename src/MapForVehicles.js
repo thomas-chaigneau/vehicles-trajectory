@@ -17,9 +17,11 @@ class MapForVehicles extends Component {
     };
   }
 
-  // taking into accont that vehicule position
+
   startVehiculesMove = (time) => {
     this.setState({ busOnTheWay: true });
+    // Since the position is not regular in time,
+    // we move to the next coordinate after a variable time interval
     setTimeout(() => {
       const { trajectoriesRefine, timeIntervals } = this.props;
       const { currentTrajectorieNb } = this.state;
