@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import MapForVehicles from './MapForVehicles';
 import file from './data.json';
 
-const VehicleInfo = file.data[1];
+const VehicleInfo = file.data[0];
 
 class TrajectoryProjection extends Component {
   state = {

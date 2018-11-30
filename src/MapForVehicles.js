@@ -19,22 +19,32 @@ class MapForVehicles extends Component {
 
   startVehiculesMove = () => {
     this.setState({ busOnTheWay: true });
-    setInterval(() => {
+    const ride = setInterval(() => {
       const { trajectories } = this.props;
-      const { currentTrajectorieNb } = this.state;
-      if (currentTrajectorieNb < trajectories.length) {
+      const { currentTrajectorieNb, busOnTheWay } = this.state;
+      if (currentTrajectorieNb < trajectories.length && busOnTheWay) {
         this.setState({
           currentTrajectorieNb: currentTrajectorieNb + 1,
           position: trajectories[currentTrajectorieNb],
         });
-      }
-    }, 10);
+      } else { clearInterval(ride); }
+    }, 3);
+  };
+
+  stopVehiculesMove = () => {
+    this.setState({ busOnTheWay: false });
+  };
+
+  resetVehiculesMove = () => {
+    this.setState({
+      busOnTheWay: false,
+      currentTrajectorieNb: 0,
+    });
   };
 
   render() {
     const { position, busOnTheWay } = this.state;
     const casablanca = [33.57311, -7.589843];
-    console.log('position', position);
     if (!position) {
       return (
         <div>
@@ -50,7 +60,16 @@ class MapForVehicles extends Component {
         <button onClick={() => this.startVehiculesMove()} type="button">
           View Trajectory
         </button>
-        <Map className="Map" center={casablanca} zoom={15}>
+
+        <button onClick={() => this.stopVehiculesMove()} type="button">
+          Stop Trajectory
+        </button>
+
+        <button onClick={() => this.resetVehiculesMove()} type="button">
+          Reset Trajectory
+        </button>
+
+        <Map className="Map" center={casablanca} zoom={12}>
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png"
