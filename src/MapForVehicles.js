@@ -9,7 +9,6 @@ class MapForVehicles extends Component {
     this.state = {
       currentTrajectorieNb: 0,
       position: props.trajectories[0],
-      // distance: props.distanceIntervals[0],
       busOnTheWay: false,
     };
     MapForVehicles.propTypes = {
@@ -36,28 +35,20 @@ class MapForVehicles extends Component {
   };
 
   resetVehiculesMove = () => {
+    const { trajectories } = this.props;
     this.setState({
       busOnTheWay: false,
       currentTrajectorieNb: 0,
+      position: trajectories[0],
     });
   };
 
   render() {
     const { position, busOnTheWay } = this.state;
     const casablanca = [33.57311, -7.589843];
-    if (!position) {
-      return (
-        <div>
-          <button onClick={() => this.startVehiculesMove()} type="button">
-              View Trajectory
-          </button>
-          <p>Loading</p>
-        </div>
-      );
-    }
     return (
       <div>
-        <button onClick={() => this.startVehiculesMove()} type="button">
+        <button onClick={() => this.startVehiculesMove()} type="button" disabled={busOnTheWay}>
           View Trajectory
         </button>
 
@@ -69,12 +60,17 @@ class MapForVehicles extends Component {
           Reset Trajectory
         </button>
 
-        <Map className="Map" center={casablanca} zoom={12}>
+        <Map className="Map" center={casablanca} zoom={1}>
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png"
           />
-          <CircleMarker opacity={busOnTheWay ? '1' : '0.1'} center={position} color="red" radius={3} />
+          <CircleMarker
+            opacity={busOnTheWay ? '1' : '0.1'}
+            center={position || [90, 0]}
+            color="red"
+            radius={3}
+          />
         </Map>
       </div>
     );
