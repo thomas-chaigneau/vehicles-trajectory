@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MapForVehicles from './MapForVehicles';
+import ManagementButton from './ManagementButton';
 import file from './data.json';
 
 const VehicleInfo = file.data[0];
@@ -36,7 +36,7 @@ class TrajectoryProjection extends Component {
           <span>Depature date:</span>
           <li>{VehicleInfo.start_date}</li>
         </ul>
-        <MapForVehicles {...this.state} />
+        <ManagementButton {...this.state} />
       </div>
     );
   }
