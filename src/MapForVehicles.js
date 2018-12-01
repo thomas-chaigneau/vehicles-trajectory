@@ -10,13 +10,16 @@ class MapForVehicles extends Component {
       currentTrajectorieNb: 0,
       position: props.trajectories[0],
       busOnTheWay: false,
+      speed: 1000,
     };
     MapForVehicles.propTypes = {
       trajectories: PropTypes.instanceOf(Array).isRequired,
     };
+    this.handleChange = this.handleChange.bind(this);
   }
 
   startVehiculesMove = () => {
+    const { speed } = this.state;
     this.setState({ busOnTheWay: true });
     const ride = setInterval(() => {
       const { trajectories } = this.props;
@@ -27,7 +30,7 @@ class MapForVehicles extends Component {
           position: trajectories[currentTrajectorieNb],
         });
       } else { clearInterval(ride); }
-    }, 3);
+    }, speed);
   };
 
   stopVehiculesMove = () => {
@@ -43,12 +46,19 @@ class MapForVehicles extends Component {
     });
   };
 
+  handleChange(event) {
+    this.setState({
+      busOnTheWay: false,
+      speed: event.target.value,
+    });
+  }
+
   render() {
-    const { position, busOnTheWay } = this.state;
+    const { position, busOnTheWay, speed } = this.state;
     const casablanca = [33.57311, -7.589843];
     return (
       <div>
-        <button onClick={() => this.startVehiculesMove()} type="button" disabled={busOnTheWay}>
+        <button onClick={() => this.startVehiculesMove()} disabled={busOnTheWay} type="button">
           View Trajectory
         </button>
 
@@ -60,7 +70,16 @@ class MapForVehicles extends Component {
           Reset Trajectory
         </button>
 
-        <Map className="Map" center={casablanca} zoom={1}>
+        <form>
+          <select id="speed" value={speed} onChange={this.handleChange}>
+            <option value="1000">Vitesse réelle</option>
+            <option value="100">Lime</option>
+            <option value="10">Coconut</option>
+            <option value="5">Mango</option>
+          </select>
+        </form>
+
+        <Map className="Map" center={casablanca} zoom={12}>
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png"
