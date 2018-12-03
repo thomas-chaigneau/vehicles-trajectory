@@ -8,7 +8,7 @@ class ManagementButton extends Component {
     super(props);
     this.state = {
       currentTrajectorieNb: 0,
-      position: props.trajectories[0] || [90, 0],
+      position: props.trajectories[0],
       busOnTheWay: false,
       speed: 1000,
     };
