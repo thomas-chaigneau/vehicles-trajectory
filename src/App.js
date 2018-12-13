@@ -1,16 +1,15 @@
-/* eslint-disable */
-import React, { Component } from 'react';
-import TrajectoryProjection from './TrajectoryProjection';
+import React from 'react';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import MapForVehicles from './component/MapForVehicles';
+import ManagementButton from './component/ManagementButton';
 import './style/App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <TrajectoryProjection />
-      </div>
-    );
-  }
-}
+
+const App = () => (
+  <Provider store={store}>
+    <ManagementButton />
+    <MapForVehicles />
+  </Provider>);
 
 export default App;
